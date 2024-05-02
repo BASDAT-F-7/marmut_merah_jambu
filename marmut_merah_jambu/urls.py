@@ -24,4 +24,5 @@ urlpatterns = [
     path('cru_registrasi/', include('cru_registrasi.urls')),
     path('albums/', include('crud_kelola_album_song.urls')),
     path('royalti/', include('royalti.urls')),
+    path('Langganan_paket/', include('Langganan_paket.urls')),
 ]
