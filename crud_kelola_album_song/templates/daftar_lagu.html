@@ -65,7 +65,7 @@
 <div class="grid-container">
 
     <div class="grid-child">
-        <button class="add-album-button">Tambah Lagu</button>
+        <button class="add-album-button" onclick="add_song()">Tambah Lagu</button>
     </div>
     
     <div class="grid-child">
@@ -132,5 +132,13 @@
         </table>
     </div>
 </div>
+
+<!-- Scripts -->
+
+<script>
+    function add_song() {
+         location.href = "/albums/add-song/";
+    } 
+</script>
 
 {% endblock content %}

@@ -65,7 +65,7 @@
 <div class="grid-container">
 
     <div class="grid-child">
-        <button class="add-album-button">Tambah Album</button>
+        <button class="add-album-button" onclick="add_album()">Tambah Album</button>
     </div>
     
     <div class="grid-child">
@@ -93,12 +93,12 @@
                         <div class="container">
                             <div class="row">
                               <div class="col">
-                                <button class="song-list-button">Lihat Daftar Lagu</button>
+                                <button class="song-list-button" onclick="song_list()">Lihat Daftar Lagu</button>
                               </div>
                             </div>
                             <div class="row">
                                 <div class="col">
-                                  <button class="add-song-button">Tambah Lagu</button>
+                                  <button class="add-song-button" onclick="add_song()">Tambah Lagu</button>
                                 </div>
                             </div>
                             <div class="row">
@@ -121,12 +121,12 @@
                         <div class="container">
                             <div class="row">
                               <div class="col">
-                                <button class="song-list-button">Lihat Daftar Lagu</button>
+                                <button class="song-list-button" onclick="song_list()">Lihat Daftar Lagu</button>
                               </div>
                             </div>
                             <div class="row">
                                 <div class="col">
-                                  <button class="add-song-button">Tambah Lagu</button>
+                                  <button class="add-song-button" onclick="add_song()">Tambah Lagu</button>
                                 </div>
                             </div>
                             <div class="row">
@@ -142,5 +142,21 @@
         </table>
     </div>
 </div>
+
+<!-- Scripts -->
+
+<script>
+    function add_album() {
+         location.href = "/albums/add/";
+    } 
+
+    function song_list() {
+         location.href = "/albums/detail/";
+    } 
+
+    function add_song() {
+         location.href = "/albums/add-song/";
+    } 
+</script>
 
 {% endblock content %}
