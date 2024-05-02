@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'royalti',
     'main',
     'Langganan_paket',
+    'pencarian',
+    'downloaded_songs'
 ]
 
 MIDDLEWARE = [

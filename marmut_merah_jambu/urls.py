@@ -25,4 +25,6 @@ urlpatterns = [
     path('albums/', include('crud_kelola_album_song.urls')),
     path('royalti/', include('royalti.urls')),
     path('Langganan_paket/', include('Langganan_paket.urls')),
+    path('pencarian/', include('pencarian.urls')),
+    path('downloaded_songs/', include('downloaded_songs.urls')),
 ]
