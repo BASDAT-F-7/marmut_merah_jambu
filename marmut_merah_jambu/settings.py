@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'playlist',
     'cru_registrasi',
     'crud_kelola_album_song',
+    'royalti',
+    'main',
 ]
 
 MIDDLEWARE = [
