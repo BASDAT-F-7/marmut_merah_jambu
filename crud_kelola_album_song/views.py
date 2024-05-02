@@ -16,3 +16,11 @@ def create_song(request):
 def create_album(request):
     context = {}
     return render(request, "create_album.html", context)
+
+def show_label_album(request):
+    context = {}
+    return render(request, "label_list_album.html", context)
+
+def show_label_song_list(request):
+    context = {}
+    return render(request, "label_daftar_lagu.html", context)
