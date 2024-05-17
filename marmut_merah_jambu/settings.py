@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
+import dj_database_url
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,13 +22,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-1ccxps6zihnzbaskmu&w68ms-#20-!32yenx_mclvpd3ys-mfx'
+# SECRET_KEY = 'django-insecure-1ccxps6zihnzbaskmu&w68ms-#20-!32yenx_mclvpd3ys-mfx'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+# ALLOWED_HOSTS = ["*"]
 
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-1ccxps6zihnzbaskmu&w68ms-#20-!32yenx_mclvpd3ys-mfx')
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1').split(",")
+SUPABASE_DB_URL = os.environ.get("SUPABASE_DB_URL")
+DJANGO_ENV = os.environ.get('DJANGO_ENV')
 
 # Application definition
 
@@ -46,6 +53,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -78,17 +86,39 @@ WSGI_APPLICATION = 'marmut_merah_jambu.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        "NAME": "postgres",
-        "USER": "postgres.cucamuatyldtkvxripor",
-        "PASSWORD": "Basdat-7-marmut",
-        "HOST": "aws-0-ap-southeast-1.pooler.supabase.com",
-        "PORT": "5432",
-        "OPTIONS": {"options": "-c search_path=marmut"},
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         "NAME": "postgres",
+#         "USER": "postgres.cucamuatyldtkvxripor",
+#         "PASSWORD": "Basdat-7-marmut",
+#         "HOST": "aws-0-ap-southeast-1.pooler.supabase.com",
+#         "PORT": "5432",
+#         "OPTIONS": {"options": "-c search_path=marmut"},
+#     }
+# }
+
+# Check if the Supabase database URL is set
+if SUPABASE_DB_URL:
+    # Use the Supabase database configuration
+    DATABASES = {
+        "default": dj_database_url.config(
+            default=SUPABASE_DB_URL, conn_max_age=600
+        )
     }
-}
+else:
+    # Use the SQLite database configuration for development
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            "NAME": "postgres",
+            "USER": "postgres.cucamuatyldtkvxripor",
+            "PASSWORD": "Basdat-7-marmut",
+            "HOST": "aws-0-ap-southeast-1.pooler.supabase.com",
+            "PORT": "5432",
+            "OPTIONS": {"options": "-c search_path=marmut"},
+        }
+    }
 
 
 
@@ -126,7 +156,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 STATIC_URL = 'static/'
+# STATICFILES_DIRS = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "marmut_merah_jambu/wsgi.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "15mb",
+        "runtime": "python3.9"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "marmut_merah_jambu/wsgi.py"
+    }
+  ],
+  "buildCommand": "chmod +x build_files.sh && ./build_files.sh",
+  "env": {
+    "PYTHON_VERSION": "3.9"
+  }
+}
